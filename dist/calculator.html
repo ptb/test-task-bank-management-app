@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/27162ffc55.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Loan Calculator</title>
+  </head>
+
+  <body class="page">
+    <header class="page-header">
+      <div class="page-header__container page-container">
+        <h1 class="page-header__title">Loan Calculator</h1>
+        <div class="page-header__container-actions">
+          <a href="./index.html" class="page-header__link">Bank Management</a>
+        </div>
+      </div>
+    </header>
+    <main class="page-main">
+      <div class="page-main__container page-container">
+        <div class="page-main__calculator calculator">
+          <div class="calculator__header">
+            <span class="calculator__header-title">Loan Calculator</span>
+            <button
+              class="calculator__header-button page-button calculator__header-button page-button page-button--secondary"
+              data-calculator-button="reset"
+            >
+              Reset
+            </button>
+          </div>
+          <div class="calculator__main">
+            <form class="calculator__form" data-calculator-form>
+              <div class="calculator__form-group">
+                <input
+                  type="text"
+                  class="calculator__form-input"
+                  id="initialLoan"
+                  name="initialLoan"
+                  placeholder="$280.000"
+                />
+                <label for="" class="calculator__form-label">
+                  Initial loan
+                </label>
+              </div>
+              <div class="calculator__form-group">
+                <input
+                  type="text"
+                  class="calculator__form-input"
+                  id="downPayment"
+                  name="downPayment"
+                  placeholder="$20.000"
+                />
+                <label for="" class="calculator__form-label">
+                  Down payment
+                </label>
+              </div>
+              <div class="calculator__form-group">
+                <select
+                  class="calculator__form-select"
+                  data-calculator-bank-select
+                ></select>
+                <label for="" class="calculator__form-label"> Bank </label>
+              </div>
+            </form>
+          </div>
+          <div class="calculator__footer">
+            <button
+              class="calculator__footer-button page-button page-button--primary"
+              data-calculator-button="submit"
+            >
+              Submit
+            </button>
+            <div class="calculator__footer-result hidden">
+              <span class="calculator__footer-result-title">
+                Monthly payment:
+                <span class="calculator__footer-result-value"> $55.00 </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="page-modal modal hidden" data-modal></div>
+    <script type="module" src="./scripts/calculator.js"></script>
+  </body>
+</html>

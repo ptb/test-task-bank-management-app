@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/27162ffc55.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Bank Management</title>
+  </head>
+
+  <body class="page">
+    <header class="page-header" data-header>
+      <div class="page-header__container page-container">
+        <h1 class="page-header__title">Bank management</h1>
+        <div class="page-header__container-actions">
+          <a href="./calculator.html" class="page-header__link"
+            >Loan Calculator</a
+          >
+          <button
+            class="page-header__button page-button page-button--primary"
+            data-modal-button="add"
+          >
+            <i class="page-button__icon fa-solid fa-plus"></i>
+            <span class="page-button__text">Add new item</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-main page-main--table">
+      <div class="page-main__container page-container">
+        <table class="page-main__table table" data-table>
+          <thead class="table__header">
+            <tr class="table__header-row">
+              <th class="table__cell table__header-cell">#</th>
+              <th class="table__cell table__header-cell">Bank Name</th>
+              <th class="table__cell table__header-cell">Interest rate</th>
+              <th class="table__cell table__header-cell">Maximum loan</th>
+              <th class="table__cell table__header-cell">
+                Minimum down payment
+              </th>
+              <th class="table__cell table__header-cell">Loan term</th>
+              <th class="table__cell table__header-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table__body" data-table-body></tbody>
+        </table>
+      </div>
+    </main>
+    <div class="page-modal modal hidden" data-modal></div>
+    <script type="module" src="./scripts/app.js"></script>
+  </body>
+</html>
