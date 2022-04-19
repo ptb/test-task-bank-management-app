@@ -34,12 +34,52 @@ const Storage = () => {
     localStorage.setItem(name, JSON.stringify(details));
   };
 
+  const init = () => {
+    const details = [
+      {
+        id: 0,
+        bankName: "local bank 1",
+        interestRate: 12.5,
+        maximumLoan: 2500,
+        minimumDownPayment: 25,
+        loanTerm: 24,
+      },
+      {
+        id: 1,
+        bankName: "local bank 2",
+        interestRate: 14.5,
+        maximumLoan: 1500,
+        minimumDownPayment: 25,
+        loanTerm: 12,
+      },
+      {
+        id: 2,
+        bankName: "local bank 3",
+        interestRate: 25.5,
+        maximumLoan: 1000,
+        minimumDownPayment: 50,
+        loanTerm: 8,
+      },
+      {
+        id: 3,
+        bankName: "local bank 4",
+        interestRate: 12.5,
+        maximumLoan: 3000,
+        minimumDownPayment: 25,
+        loanTerm: 32,
+      },
+    ];
+
+    if (localStorage.getItem(name) === null) details.forEach(add);
+  };
+
   return {
     get,
     add,
     remove,
     edit,
     getById,
+    init,
   };
 };
 
