@@ -7,10 +7,11 @@ const calculator = (() => {
   const buttonReset = document.querySelector(
     '[data-calculator-button="reset"]'
   );
-
   const buttonSubmit = document.querySelector(
     '[data-calculator-button="submit"]'
   );
+  const resultContainer = document.querySelector("[data-calculator-result]");
+  const resultValue = document.querySelector("[data-calculator-result-value]");
 
   let currentBankId;
 
@@ -42,61 +43,68 @@ const calculator = (() => {
     return initialLoan <= maximumLoan && downPayment <= minimumDownPayment;
   };
 
+  const getBankDetails = () => {
+    const data = getData();
+    const bankDetails = data.filter(
+      (item) => item.id === Number(currentBankId)
+    );
+    const { interestRate, loanTerm, maximumLoan, minimumDownPayment } =
+      bankDetails[0];
+
+    const initialLoan = Number(form.initialLoan.value);
+    const downPayment = Number(form.downPayment.value);
+
+    return {
+      interestRate,
+      loanTerm,
+      maximumLoan,
+      minimumDownPayment,
+      initialLoan,
+      downPayment,
+    };
+  };
+
+  const getCalculation = () => {
+    const details = getBankDetails();
+    const { interestRate, loanTerm, initialLoan } = details;
+
+    if (checkRequiredOptions(details)) {
+      const interestRatePercentage = interestRate / 100;
+      const x =
+        interestRatePercentage * (1 + interestRatePercentage) ** loanTerm;
+      const y = (1 + interestRatePercentage) ** loanTerm - 1;
+      const monthlyPayment = initialLoan * (x / y);
+
+      return monthlyPayment;
+    }
+  };
+
   const handleEvents = () => {
     selectContainer.addEventListener("change", ({ target }) => {
       currentBankId = target.value;
+      resultContainer.classList.add("hidden");
     });
 
     buttonReset.addEventListener("click", () => {
+      resultContainer.classList.add("hidden");
       form.reset();
     });
 
     buttonSubmit.addEventListener("click", () => {
-      const data = getData();
-      const bankDetails = data.filter(
-        (item) => item.id === Number(currentBankId)
-      );
-      const { interestRate, loanTerm, maximumLoan, minimumDownPayment } =
-        bankDetails[0];
-
-      const initialLoan = Number(form.initialLoan.value);
-      const downPayment = Number(form.downPayment.value);
-
-      const details = {
-        interestRate,
-        loanTerm,
-        maximumLoan,
-        minimumDownPayment,
-        initialLoan,
-        downPayment,
-      };
-
-      if (checkRequiredOptions(details)) {
-        const monthlyPayment =
-          (initialLoan *
-            ((interestRate / 12) *
-              (1 + interestRate / 12) ** Number(loanTerm))) /
-            (1 + interestRate / 12) ** Number(loanTerm) -
-          1;
-
-        console.log(monthlyPayment);
+      if (getCalculation()) {
+        const monthlyPayment = getCalculation();
+        const formatedValue = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(monthlyPayment.toFixed(2));
+        resultValue.textContent = formatedValue;
+        resultContainer.classList.remove("hidden");
       }
     });
   };
-
-  //   const getMonthlyPayment = (id) => {
-  //     console.log(id);
-  //   };
 
   return { renderBankNames, handleEvents };
 })();
 
 calculator.renderBankNames();
 calculator.handleEvents();
-
-// const monthlyPayment =
-//   (amountBorrowed *
-//     (interestRate / 12) *
-//     (1 + interestRate / 12) ** numberOfMonthlyPayment) /
-//     (1 + interestRate / 12) ** numberOfMonthlyPayment -
-//   1;
