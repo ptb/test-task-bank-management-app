@@ -73,7 +73,7 @@ const calculator = (() => {
       const balance = initialLoan - downPayment;
       const monthlyRate = interestRatePercentage / 12;
 
-      const monthlyPayment = balance * (monthlyRate / (1 - Math.pow(1 + monthlyRate, - loanTerm)))
+      const monthlyPayment = balance * ((monthlyRate * (1 + monthlyRate) ** loanTerm) / ((1 + monthlyRate) ** loanTerm) - 1)
 
       return monthlyPayment;
     }
