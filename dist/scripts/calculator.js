@@ -40,7 +40,7 @@ const calculator = (() => {
   const checkRequiredOptions = (details) => {
     const { initialLoan, maximumLoan, downPayment, minimumDownPayment } =
       details;
-    return initialLoan <= maximumLoan && downPayment <= minimumDownPayment;
+    return initialLoan <= maximumLoan && downPayment >= minimumDownPayment;
   };
 
   const getBankDetails = () => {
@@ -66,14 +66,14 @@ const calculator = (() => {
 
   const getCalculation = () => {
     const details = getBankDetails();
-    const { interestRate, loanTerm, initialLoan } = details;
+    const { downPayment, initialLoan, interestRate, loanTerm } = details;
 
     if (checkRequiredOptions(details)) {
       const interestRatePercentage = interestRate / 100;
-      const x =
-        interestRatePercentage * (1 + interestRatePercentage) ** loanTerm;
-      const y = (1 + interestRatePercentage) ** loanTerm - 1;
-      const monthlyPayment = initialLoan * (x / y);
+      const balance = initialLoan - downPayment;
+      const monthlyRate = interestRatePercentage / 12;
+
+      const monthlyPayment = balance * (monthlyRate / (1 - Math.pow(1 + monthlyRate, - loanTerm)))
 
       return monthlyPayment;
     }
